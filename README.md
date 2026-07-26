@@ -56,6 +56,23 @@ re-toggling. Displays without a setting use the default.
 
 ## Install
 
+### Homebrew
+
+```sh
+brew trust --tap notTag/tap          # brew gates non-official taps
+brew install notTag/tap/space-tag
+"$(brew --prefix space-tag)/install.sh"
+yabai --start-service
+brew services start sketchybar
+exec $SHELL
+```
+
+Homebrew places the files; it can't symlink into `~/.config` or touch your shell
+rc, so `install.sh` still runs as a second step. Invoke it through
+`brew --prefix` — that path is version-stable, so the symlinks survive upgrades.
+
+### From source
+
 ```sh
 ./install.sh
 yabai --start-service
@@ -83,6 +100,9 @@ space-tag uninstall --yes  # skip the confirmation prompt
 Reverses everything `install.sh` did: stops the yabai/sketchybar services,
 removes the config symlinks, state files, `~/.local/bin/space-tag`, and the
 shell hook lines, and (unless `--keep-brew`) uninstalls the Homebrew packages.
+
+Installed via Homebrew? Follow with `brew uninstall space-tag` to drop the
+formula itself.
 
 ## Requirements
 
